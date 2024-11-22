@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pump.fun Trader - Jeet Bundler</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Use the same CSS from your main page -->
+    <style>
+        /* Modern CSS Reset and Base Styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        /* Gradient Animation */
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* Fade In Animation */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #13141c, #20233a, #2d2f54, #34366f);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #ffffff;
+        }
+        /* Navbar Styles */
+        /* Navbar Styles */
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #00ff9d, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a.active {
+            background: linear-gradient(45deg, #00ff9d, #00ccff);
+            color: #13141c;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons img {
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
+        /* Main Container Styles */
+        
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 1s ease-out;
+        }
+        /* Form Styles */
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #8f9bb3;
+            font-size: 0.9rem;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #00ff9d;
+            box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+        }
+        /* Button Styles */
+        
+        button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: linear-gradient(45deg, #00ff9d, #00ccff);
+            color: #13141c;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Wallet Input Container */
+        
+        .wallet-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .wallet-input {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        
+        .balance {
+            color: #00ff9d;
+            font-size: 0.9rem;
+        }
+        /* Tooltip Styles */
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Notification Styles */
+        
+        #notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .notification {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            background: rgba(0, 255, 157, 0.2);
+            color: #00ff9d;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+        /* Responsive Design */
+        /* Navbar Styles */
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #00ff9d, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        /* Container adjustment to prevent content overlap */
+        
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 2rem;
+            padding: 2rem;
+            /* ... rest of your container styles ... */
+        }
+        /* Mobile Responsive Adjustments */
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem;
+                flex-direction: row;
+                /* Keep horizontal layout */
+                flex-wrap: wrap;
+                /* Allow wrapping */
+                justify-content: center;
+                /* Center items */
+            }
+            .nav-title {
+                font-size: 1.2rem;
+                margin-right: 1rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .social-icons {
+                display: flex;
+                gap: 0.5rem;
+            }
+            .wallet-input {
+                grid-template-columns: 1fr;
+            }
+            /* Adjust container top margin */
+            .container {
+                margin-top: 80px;
+            }
+            body {
+                padding-top: 60px;
+            }
+        }
+        /* Additional adjustments for very small screens */
+        
+        @media (max-width: 480px) {
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .container {
+                margin-top: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-title">Jeet Bundler</div>
+        <div class="nav-links">
+            <a href="index.html">Jeet Pump.fun Bundler</a>
+            <a href="trader.html" class="active">Pump.fun Trader</a>
+            <a href="help.html" id="linkHelp">Help</a>
+            <div>Now also on: <a href='https://t.me/viper_pump_bot' target="_blank" style="color:green">Telegram</a></div>
+            <div class="social-icons">
+                <!-- Same social icons as main page -->
+            </div>
+        </div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <div id="traderScreen" class="container">
+        <h2>Pump.fun Trader</h2>
+        <p><b>Fees:</b><br /> Buying and Selling 0.01 sol per tx<br />
+            <b>Notes:</b><br /> - Sell all can sell a maximum of 20 wallets at a time, adds a 0.01 jito tip fee to the tx<br /> - Fees will be deducted within the transaction so you only pay if it completes<br /> - Wallets filled in the bundler will be
+            shown here<br />
+        </p>
+
+        <div class="controls">
+            <div class="trading-section">
+                <h3>Buying</h3>
+                <div class="form-group">
+                    <label for="buyToken">Token</label>
+                    <input type="text" id="buyToken" placeholder="Enter mint publickey...">
+                </div>
+                <div class="form-group">
+                    <label for="buyPvtKey">Buyer Private Key</label>
+                    <input type="password" id="buyPvtKey" placeholder="Enter private key for buyer...">
+                </div>
+                <div class="form-group">
+                    <label for="buySolAmount">SOL Amount</label>
+                    <input type="number" id="buySolAmount" placeholder="Enter SOL amount.." step="0.01">
+                </div>
+                <button id="buyAll">Buy</button>
+            </div>
+
+            <div class="trading-section">
+                <h3>Selling</h3>
+                <div class="form-group">
+                    <label for="sellToken">Token</label>
+                    <input type="text" id="sellToken" placeholder="Enter mint publickey...">
+                </div>
+                <div class="form-group">
+                    <label for="transactionPercentage">Sell Percentage</label>
+                    <input type="number" id="transactionPercentage" min="1" max="100" placeholder="1-100">
+                </div>
+                <div class="form-group">
+                    <label for="jitoTipSell">Jito Tip (SOL)</label>
+                    <span class="tooltip">?
+                        <span class="tooltiptext">Amount of SOL to tip to Jito validators for bundle inclusion.</span>
+                    </span>
+                    <input type="number" id="jitoTipSell" value="0.01" step="0.001" min="0">
+                </div>
+                <button id="sellAll">Sell All (will always sell 100%)</button>
+            </div>
+        </div>
+
+        <div id="walletTraderList"></div>
+    </div>
+
+    <script>
+        // Simulated trading functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mock wallet data
+            const mockWallets = [{
+                address: 'Wallet1',
+                balance: '10.5 SOL',
+                tokens: '1000 TOKENS'
+            }, {
+                address: 'Wallet2',
+                balance: '5.2 SOL',
+                tokens: '500 TOKENS'
+            }];
+
+            // Buy functionality
+            document.getElementById('buyAll').addEventListener('click', async() => {
+                const token = document.getElementById('buyToken').value;
+                const pvtKey = document.getElementById('buyPvtKey').value;
+                const amount = document.getElementById('buySolAmount').value;
+
+                if (!token || !pvtKey || !amount) {
+                    showNotification('Please fill all fields', 'error');
+                    return;
+                }
+
+                showNotification('Processing buy transaction...', 'info');
+
+                // Simulate transaction delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Simulate success
+                showNotification('Buy transaction successful!', 'success');
+                updateWalletList();
+            });
+
+            // Sell functionality
+            document.getElementById('sellAll').addEventListener('click', async() => {
+                const token = document.getElementById('sellToken').value;
+                const percentage = document.getElementById('transactionPercentage').value;
+                const jitoTip = document.getElementById('jitoTipSell').value;
+
+                if (!token || !percentage) {
+                    showNotification('Please fill all fields', 'error');
+                    return;
+                }
+
+                showNotification('Processing sell transaction...', 'info');
+
+                // Simulate transaction delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Simulate success
+                showNotification('Sell transaction successful!', 'success');
+                updateWalletList();
+            });
+
+            // Update wallet list
+            function updateWalletList() {
+                const container = document.getElementById('walletTraderList');
+                container.innerHTML = '<h3>Connected Wallets</h3>';
+
+                mockWallets.forEach(wallet => {
+                    const walletDiv = document.createElement('div');
+                    walletDiv.className = 'wallet-item';
+                    walletDiv.innerHTML = `
+                        <p>Address: ${wallet.address}</p>
+                        <p>Balance: ${wallet.balance}</p>
+                        <p>Tokens: ${wallet.tokens}</p>
+                    `;
+                    container.appendChild(walletDiv);
+                });
+            }
+
+            // Initial wallet list update
+            updateWalletList();
+        });
+
+        // Notification function
+        function showNotification(message, type) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

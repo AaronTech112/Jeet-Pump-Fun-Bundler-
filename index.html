@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from viper.bot/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Nov 2024 06:19:40 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeet Bundler- Pump.fun Bot</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+        /* Modern CSS Reset and Base Styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        /* Gradient Animation */
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* Fade In Animation */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #13141c, #20233a, #2d2f54, #34366f);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #ffffff;
+        }
+        /* Navbar Styles */
+        /* Navbar Styles */
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #00ff9d, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a.active {
+            background: linear-gradient(45deg, #00ff9d, #00ccff);
+            color: #13141c;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons img {
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
+        /* Main Container Styles */
+        
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 1s ease-out;
+        }
+        /* Form Styles */
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #8f9bb3;
+            font-size: 0.9rem;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #00ff9d;
+            box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+        }
+        /* Button Styles */
+        
+        button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: linear-gradient(45deg, #00ff9d, #00ccff);
+            color: #13141c;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Wallet Input Container */
+        
+        .wallet-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .wallet-input {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        
+        .balance {
+            color: #00ff9d;
+            font-size: 0.9rem;
+        }
+        /* Tooltip Styles */
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Notification Styles */
+        
+        #notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .notification {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            background: rgba(0, 255, 157, 0.2);
+            color: #00ff9d;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+        /* Responsive Design */
+        /* Navbar Styles */
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #00ff9d, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        /* Container adjustment to prevent content overlap */
+        
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 2rem;
+            padding: 2rem;
+            /* ... rest of your container styles ... */
+        }
+        /* Mobile Responsive Adjustments */
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem;
+                flex-direction: row;
+                /* Keep horizontal layout */
+                flex-wrap: wrap;
+                /* Allow wrapping */
+                justify-content: center;
+                /* Center items */
+            }
+            .nav-title {
+                font-size: 1.2rem;
+                margin-right: 1rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .social-icons {
+                display: flex;
+                gap: 0.5rem;
+            }
+            .wallet-input {
+                grid-template-columns: 1fr;
+            }
+            /* Adjust container top margin */
+            .container {
+                margin-top: 80px;
+            }
+            body {
+                padding-top: 60px;
+            }
+        }
+        /* Additional adjustments for very small screens */
+        
+        @media (max-width: 480px) {
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .container {
+                margin-top: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-title">Jeet Bundler</div>
+
+        <div class="nav-links">
+            <a href="#" id="linkBundler" class="active">Jeet Pump.fun Bundler</a>
+            <a href="trader.html" id="linkTrader">Pump.fun Trader</a>
+            <a href="help.html" id="linkHelp">Help</a>
+
+            <div>Now also on: <a href='https://t.me/jeetbundlerpumpbot' target="_blank" style="color:green">Telegram</a></div>
+            <div class="social-icons">
+                <a href="https://t.me/jeetbundlerpumpbot" target="_blank">
+                    <img src="telegram.png" alt="Telegram" width="24" height="24">
+                </a>
+                <a href="https://github.com/bilix-software/pump-fun-bundler" target="_blank">
+                    <img src="github.png" alt="GitHub" width="24" height="24">
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="bundlerScreen" class="container">
+        <h1>Jeet Pump.fun Launch Bundler</h1>
+        <p><b>Fees:</b><br /> Launch + up to 5 buys: 0.1 SOL<br /> Launch + up to 17 buys: 0.2 SOL<br />
+            <b>Notes:</b><br /> - Use the pump.fun trader screen to sell your tokens afterwards <br /> - Fees will be deducted within bundle, so you only pay fees if the bundle executes<br /> - 20+ buy bundler coming soon<br /> - Contact me on telegram
+            if you want to buy some ...pump adresses to use as mint (0.02 SOL each)<br /> - Private keys are expected in bs58 format<br /> - Or generate them yourself using any of the public libraries on <a href='https://github.com/search?q=solana%20vanity&amp;type=repositories'
+                target="_blank">github</a>
+
+        </p>
+
+        <form id="tokenForm">
+            <div class="form-group">
+                <label for="image">Token Image*</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Upload an image representing your token.</span>
+                </span>
+                <input type="file" id="image" name="image" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Token Name*</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Enter the name of your token.</span>
+                </span>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Token Description*</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Provide a description for your token.</span>
+                </span>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="symbol">Token Symbol*</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Specify the symbol for your token.</span>
+                </span>
+                <input type="text" id="symbol" name="symbol" required>
+            </div>
+            <div class="form-group">
+                <label for="twitter">Twitter (Optional)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Enter the Twitter handle for your token/project.</span>
+                </span>
+                <input type="text" id="twitter" name="twitter">
+            </div>
+            <div class="form-group">
+                <label for="telegram">Telegram (Optional)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Enter the Telegram link for your token/project.</span>
+                </span>
+                <input type="text" id="telegram" name="telegram">
+            </div>
+            <div class="form-group">
+                <label for="website">Website (Optional)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Provide the website link for your token/project.</span>
+                </span>
+                <input type="text" id="website" name="website">
+            </div>
+            <div class="form-group">
+                <label for="walletInputs">Wallet Private Keys and Buy Amounts* (first wallet = dev) (format= bs58)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Enter wallet private keys and the amount of SOL to buy for each. The balance
+                        will be fetched automatically.</span>
+                </span>
+                <div id="walletInputs" class="wallet-input-container">
+
+                </div>
+                <button type="button" id="addWalletBtn">Add Wallet</button>
+            </div>
+            <div class="form-group">
+                <label for="mintKey">Mint Private Key</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Enter the private key for minting or generate a new one.
+                        IMPORTANT: this has to be a fresh keypair that hasn't been used. If it has balance on it, it
+                        will not work</span>
+                </span>
+                <input type="text" id="mintKey" name="mintKey">
+            </div>
+            <button type="button" id="genMintKeyBtn">Generate New Mint Key</button>
+            <div class="form-group" style="margin-top:5px;">
+                <label for="couponCode">Coupon Code (optional) (Removes 0.1/0.2 fees)</label>
+                <input type="text" id="couponCode" name="couponCode" placeholder="Enter coupon code">
+            </div>
+
+            <div class="form-group">
+                <label for="jitoTip">Jito Tip (SOL)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Amount of SOL to tip to Jito validators for bundle inclusion.</span>
+                </span>
+                <input type="number" id="jitoTip" name="jitoTip" value="0.01" step="0.001" min="0">
+            </div>
+
+            <button type="submit">Submit</button> <span>Current fees: <span id="feeAmount">0.2</span> SOL (+ jito tip)
+            </span>
+        </form>
+        <div id="responseBox"></div>
+        <p>Want to try it out? <a href="https://t.me/viper_discussions" target="_blank">Contact us on Telegram</a> for a trial coupon code!</p>
+
+        <!--<a href="#" class="faq-link">FAQ</a>-->
+    </div>
+
+    <!-- <div id="traderScreen" class="container">
+        <h2>Pump.fun Trader</h2>
+        <p><b>Fees:</b><br /> Buying and Selling 0.01 sol per tx<br />
+            <b>Notes:</b><br /> - Sell all can sell a maximum of 20 wallets at a time, adds a 0.01 jito tip fee to the tx<br /> - Fees will be deducted within the transaction so you only pay if it completes<br /> - Wallets filled in the bundler will be
+            shown here<br />
+        </p>
+        <div class="controls">
+            <div>
+                <h3>Buying</h3>
+                <label for="buyToken">Token</label>
+                <input type="text" id="buyToken" placeholder="Enter mint publickey..."><br />
+                <label for="buyPvtKey">Buyer pvtkey</label>
+                <input type="password" id="buyPvtKey" placeholder="Enter private key for buyer..."><br />
+                <label for="buySolAmount">Sol amount</label>
+                <input type="number" id="buySolAmount" placeholder="Enter sol amount..">
+                <br /><br /><button id="buyAll">Buy</button>
+            </div>
+            <br />
+
+            <div>
+                <h3>Selling</h3>
+                <label for="sellToken">Token</label>
+                <input type="text" id="sellToken" placeholder="Enter mint publickey..."><br />
+                <label for="transactionPercentage">Set Sell Percentage:</label>
+                <input type="number" id="transactionPercentage" min="1" max="100" placeholder="1-100">
+                <br /> <br />
+
+                <label for="jitoTip">Jito Tip (SOL)</label>
+                <span class="tooltip">?
+                    <span class="tooltiptext">Amount of SOL to tip to Jito validators for bundle inclusion.</span>
+                </span>
+                <input type="number" id="jitoTipSell" name="jitoTipSell" value="0.01" step="0.001" min="0">
+                <br /><br />
+                <button id="sellAll">Sell All (will always sell 100%)</button><br /><br />
+            </div>
+
+
+        </div>
+        <div id="walletTraderList"></div>
+
+        <!--<a href="#" class="faq-link">FAQ</a>-->
+    </div> -->
+
+
+    <div id="changelogScreen" class="container" style="display: none;">
+        <h2>Changelog</h2>
+        <div id="changelogContent"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+
+
+</body>
+<script>
+    // Simulated functionality
+    const simulatedWallet = {
+        isValid: true,
+        balance: 10, // Simulated SOL balance
+    };
+
+    // Mock connection object
+    const mockConnection = {
+        getBalance: async() => Promise.resolve(10 * 1e9), // Always returns 10 SOL
+        getAccountInfo: async() => Promise.resolve({
+            data: new Uint8Array()
+        }),
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Form submission handler
+        document.getElementById('tokenForm').addEventListener('submit', async(e) => {
+            e.preventDefault();
+
+            // Simulate processing
+            showNotification('Processing your request...', 'info');
+
+            // Simulate a delay to make it feel more realistic
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Always succeed
+            showNotification('Transaction successful! Redirecting...', 'success');
+
+            // Simulate redirect to success page
+            setTimeout(() => {
+                window.location.href = 'success.html'; // Create this page or redirect wherever needed
+            }, 1500);
+        });
+
+        // Wallet addition functionality
+        document.getElementById('addWalletBtn').addEventListener('click', () => {
+            const container = document.getElementById('walletInputs');
+            const walletCount = container.children.length;
+
+            const walletDiv = document.createElement('div');
+            walletDiv.className = 'wallet-input';
+            walletDiv.innerHTML = `
+        <input type="password" placeholder="Private Key ${walletCount + 1}" class="pvtKey">
+        <input type="number" placeholder="Buy Amount (SOL)" class="buyAmount" step="0.01">
+        <span class="balance">Balance: 10 SOL</span>
+    `;
+
+            container.appendChild(walletDiv);
+        });
+
+        // Generate mint key button
+        document.getElementById('genMintKeyBtn').addEventListener('click', () => {
+            const mockMintKey = 'SimulatedMintKey' + Math.random().toString(36).substr(2, 9);
+            document.getElementById('mintKey').value = mockMintKey;
+            showNotification('New mint key generated!', 'success');
+        });
+    });
+
+    // Helper function for notifications
+    function showNotification(message, type) {
+        const container = document.getElementById('notification-container');
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        container.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // Mock wallet validation
+    function validateWallet(privateKey) {
+        return true; // Always return valid
+    }
+
+    // Mock balance check
+    async function checkBalance(address) {
+        return 10; // Always return 10 SOL
+    }
+</script>
+
+</html>
